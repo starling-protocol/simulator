@@ -51,11 +51,13 @@ func VadereLoad(path string, keepRate float64, random *rand.Rand) map[int64]*Vad
 		}
 	}
 
+	keep := int(keepRate * float64(len(coordListMap)))
+	i := 0
 	for _, vadereNodeId := range utils.ShuffleMapKeys(random, coordListMap) {
-		r := random.Float64()
-		if r > keepRate {
+		if i >= keep {
 			delete(coordListMap, vadereNodeId)
 		}
+		i++
 	}
 
 	for _, line := range data {

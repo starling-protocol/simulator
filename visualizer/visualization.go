@@ -21,8 +21,8 @@ import (
 )
 
 const (
-	SCREEN_WIDTH  = 1024
-	SCREEN_HEIGHT = 680
+	SCREEN_WIDTH  = 1500
+	SCREEN_HEIGHT = 1000
 )
 
 var (
@@ -177,7 +177,7 @@ func (v *Visualizer) Draw(screen *ebiten.Image) {
 		os.Exit(0)
 	}
 
-	screen.Fill(color.RGBA{121, 217, 125, 255})
+	screen.Fill(color.RGBA{255, 255, 255, 255})
 
 	mouseX, mouseY := ebiten.CursorPosition()
 
