@@ -41,6 +41,10 @@ func (s *SessionOrchestrator) SessionScenario(maintainSession bool) *ScenarioSes
 	}
 }
 
+func (s *ScenarioSession) CancelRetry() {
+	*s.cancelRetry = true
+}
+
 func (s *ScenarioSession) DidEstablishSession() bool {
 	return s.didEstablish
 }
@@ -105,7 +109,7 @@ func (s *ScenarioSession) establishConnection(node *Node) {
 			if s.sessionID == nil && !cancelRetry {
 				s.establishConnection(node)
 			}
-		}, 10*time.Second)
+		}, 60*time.Second)
 	}
 }
 
@@ -123,9 +127,9 @@ func (s *ScenarioSession) OnSessionEstablished(node *Node, session device.Sessio
 			s.sessionID = &session
 			s.didEstablish = true
 
-			if s.cancelRetry != nil {
-				*s.cancelRetry = true
-			}
+			// if s.cancelRetry != nil {
+			// 	*s.cancelRetry = true
+			// }
 
 			s.sessionEstablished(node, *s.orchestrator.sessionID)
 		}
